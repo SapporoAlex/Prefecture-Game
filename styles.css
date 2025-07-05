@@ -308,6 +308,47 @@ p {
     box-shadow: none;
 }
 
+
+.svg-pan-zoom-control {
+  transform: scale(0.2); /* Make 2x size */
+  z-index: 1000; /* Ensure it stays on top */
+  transform-origin: bottom right;
+}
+
+#svg-pan-zoom-reset-pan-zoom {
+    transform-origin: top;
+    display: none;
+}
+
+#svg-pan-zoom-zoom-in {
+  transform-origin: top;
+}
+
+#svg-pan-zoom-zoom-out {
+  transform-origin: top left;
+}
+
+.svg-pan-zoom-control-background {
+  fill: #1e88e500 !important; /* background color */
+  stroke: none !important;
+}
+
+/* Change plus and minus icons */
+.svg-pan-zoom-control-icon {
+  fill: #fff !important; /* icon color */
+}
+
+.prefecture {
+  opacity: 0;
+  transform: translateY(-200px);
+  transition: transform 1.2s ease-out, opacity 0.5s ease-out;
+}
+
+.prefecture.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (max-width: 700px) {
   .menu {
     grid-template-columns: 1fr; /* Stack vertically */
@@ -358,35 +399,16 @@ p {
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
   }
-}
 
-.svg-pan-zoom-control {
-  transform: scale(0.2); /* Make 2x size */
-  z-index: 1000; /* Ensure it stays on top */
-  transform-origin: bottom right;
-}
+  .svg-pan-zoom-control {
+    transform: scale(0.2); /* Make 2x size */
+    z-index: 1000; /* Ensure it stays on top */
+  }
+  #svg-pan-zoom-zoom-in {
+    transform-origin: left;
+  }
 
-#svg-pan-zoom-reset-pan-zoom {
-    transform-origin: top;
-    display: none;
-}
-
-#svg-pan-zoom-zoom-in {
-  transform-origin: top;
-}
-
-#svg-pan-zoom-zoom-out {
-  transform-origin: top left;
-}
-
-.prefecture {
-  opacity: 0;
-  transform: translateY(-100px);
-  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-}
-
-/* Add this class when triggering the animation */
-.prefecture.animate-in {
-  opacity: 1;
-  transform: translateY(0);
+  #svg-pan-zoom-zoom-out {
+    transform-origin: top left;
+  }
 }
