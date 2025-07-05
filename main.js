@@ -8,11 +8,9 @@ const retry = document.getElementById('retry');
 const scoreSection = document.getElementById('score-section');
 const scoreDisplay = document.getElementById('score-display');
 
-
 const correctSound = new Audio('correct.mp3');
 const incorrectSound = new Audio('incorrect.mp3');
 
-// Load best score from localStorage
 let bestScore = localStorage.getItem('bestScore') || 0;
 bestScoreText.textContent = bestScore;
 
@@ -44,10 +42,17 @@ async function initGame() {
   let questionNumber = 0;
   retry.classList.add('is-hidden');
 
+  // 🎉 Animate fall-in effect
+  all.forEach((el, i) => {
+    el.classList.remove('animate-in'); // reset if replayed
+    setTimeout(() => {
+      el.classList.add('animate-in');
+    }, i * 20); // staggered delay
+  });
+
   function updateScore() {
     scoreText.textContent = score + "/" + questionNumber;
   }
-
 
   function checkBestScore() {
     if (score > bestScore) {
@@ -61,7 +66,7 @@ async function initGame() {
     if (remaining.length === 0) {
       questionText.textContent = '🎉 Game over!';
       answerText.textContent = `Final Score: ${score}/${all.length}`;
-      checkBestScore(); // <-- Check if it's a new best
+      checkBestScore();
       retry.classList.remove('is-hidden');
       return;
     }
@@ -71,57 +76,52 @@ async function initGame() {
     questionText.textContent = `${target.id}`;
   }
 
-let selectedPrefecture = null;
+  let selectedPrefecture = null;
 
-all.forEach(el => {
-  let moved = false;
+  all.forEach(el => {
+    let moved = false;
 
-  const handleInteraction = () => {
-    if (!target) return;
+    const handleInteraction = () => {
+      if (!target) return;
 
-    // First tap: select the prefecture
-    if (selectedPrefecture !== el) {
-      if (selectedPrefecture) {
-        selectedPrefecture.classList.remove('is-highlighted');
+      if (selectedPrefecture !== el) {
+        if (selectedPrefecture) {
+          selectedPrefecture.classList.remove('is-highlighted');
+        }
+        selectedPrefecture = el;
+        el.classList.add('is-highlighted');
+        answerText.innerText = `Tap again to confirm`;
+        return;
       }
-      selectedPrefecture = el;
-      el.classList.add('is-highlighted');
-      answerText.innerText = `Tap again to confirm`;
-      return;
-    }
 
-    // Second tap: confirm the selection
-    questionNumber++;
-    if (el === target) {
-      score++;
-      answerText.innerText = "✅ Correct!";
-      correctSound.play();
-      selectedPrefecture.classList.remove('is-highlighted');
-      target.classList.add('is-correct');
-    } else {
-      answerText.innerText = `❌ Incorrect! That was ${el.id}`;
-      incorrectSound.play();
-      selectedPrefecture.classList.remove('is-highlighted');
-      target.classList.add('is-incorrect');
-    }
+      questionNumber++;
+      if (el === target) {
+        score++;
+        answerText.innerText = "✅ Correct!";
+        correctSound.play();
+        selectedPrefecture.classList.remove('is-highlighted');
+        target.classList.add('is-correct');
+      } else {
+        answerText.innerText = `❌ Incorrect! That was ${el.id}`;
+        incorrectSound.play();
+        selectedPrefecture.classList.remove('is-highlighted');
+        target.classList.add('is-incorrect');
+      }
 
-    selectedPrefecture = null;
-    updateScore();
-    pick();
-  };
+      selectedPrefecture = null;
+      updateScore();
+      pick();
+    };
 
-  // Desktop and general support
-  el.addEventListener('click', handleInteraction);
-
-  // Touch device handling (prevent drag = accidental click)
-  el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
-  el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
-  el.addEventListener('touchend', (e) => {
-    if (moved) return;
-    e.preventDefault();
-    handleInteraction();
+    el.addEventListener('click', handleInteraction);
+    el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
+    el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
+    el.addEventListener('touchend', (e) => {
+      if (moved) return;
+      e.preventDefault();
+      handleInteraction();
+    });
   });
-});
 
   updateScore();
   pick();

@@ -378,3 +378,15 @@ p {
 #svg-pan-zoom-zoom-out {
   transform-origin: top left;
 }
+
+.prefecture {
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+/* Add this class when triggering the animation */
+.prefecture.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
