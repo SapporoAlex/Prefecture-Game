@@ -59,7 +59,7 @@ body::after {
 
 .section {
     margin-block: 0;
-    background: #0011ff;
+    background: #000877;
 }
 
 .container {
@@ -183,6 +183,17 @@ body::after {
   display: none !important;
 }
 
+.prefecture {
+  -webkit-tap-highlight-color: transparent; /* Disable gray highlight */
+  outline: none;
+}
+
+.prefecture:focus,
+.prefecture:active {
+  outline: none;
+  background: none;
+}
+
 .prefecture.is-highlighted {
   stroke: #ffffff;
   stroke-width: 2;
@@ -291,7 +302,7 @@ p {
     left: 10px;
     background: none;
     color:#000;
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     padding: 0;
     border: none;
     box-shadow: none;
@@ -347,4 +358,23 @@ p {
     padding: 0.5rem 1rem;
     margin: 0.5rem 0;
   }
+}
+
+.svg-pan-zoom-control {
+  transform: scale(0.2); /* Make 2x size */
+  z-index: 1000; /* Ensure it stays on top */
+  transform-origin: bottom right;
+}
+
+#svg-pan-zoom-reset-pan-zoom {
+    transform-origin: top;
+    display: none;
+}
+
+#svg-pan-zoom-zoom-in {
+  transform-origin: top;
+}
+
+#svg-pan-zoom-zoom-out {
+  transform-origin: top left;
 }
