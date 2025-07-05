@@ -31,7 +31,8 @@ async function initGame() {
     zoomEnabled: true,
     controlIconsEnabled: true,
     fit: true,
-    center: true
+    center: true,
+    customEventsHandler: svgPanZoom.mobileEventsHandler
   });
 
   const all = Array.from(document.querySelectorAll('.prefecture'));
