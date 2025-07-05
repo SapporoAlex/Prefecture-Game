@@ -68,7 +68,8 @@ async function initGame() {
     questionText.textContent = `${target.id}`;
   }
 
-  all.forEach(el => el.addEventListener('click', () => {
+all.forEach(el => {
+  const handleClick = () => {
     if (!target) return;
 
     questionNumber++;
@@ -85,7 +86,11 @@ async function initGame() {
 
     updateScore();
     pick();
-  }));
+  };
+
+  el.addEventListener('click', handleClick);
+  el.addEventListener('touchend', handleClick);
+});
 
   updateScore();
   pick();
