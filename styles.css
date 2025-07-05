@@ -1,0 +1,282 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #2f88d1, #54acff);
+  overflow: hidden;
+  position: relative;
+  font-family: sans-serif;
+}
+
+/* Layered drifting gradients to simulate ocean current */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle at 30% 30%, rgba(20, 58, 95, 0.05), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(149, 212, 255, 0.027), transparent 70%),
+              repeating-linear-gradient(
+                45deg,
+                rgba(157, 240, 255, 0.015),
+                rgba(93, 209, 255, 0.015) 2px,
+                transparent 2px,
+                transparent 10px
+              );
+  animation: drift 120s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  animation: driftReverse 200s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(5%, 5%) rotate(360deg);
+  }
+}
+
+@keyframes driftReverse {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-5%, -5%) rotate(-360deg);
+  }
+}
+
+.section {
+    margin-block: 0;
+    background: #0e306b;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    margin: 0 auto;
+}
+
+.prefecture:hover {
+    opacity: .5;
+}
+
+.prefecture {
+    stroke: #333;
+    stroke-width: .5;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+
+.hokkaido { fill: #e57373; }
+.tohoku   { fill: #f06292; }
+.kanto    { fill: #ba68c8; }
+.chubu    { fill: #4db6ac; }
+.kinki    { fill: #4fc3f7; }
+.chugoku  { fill: #81c784; }
+.shikoku  { fill: #ffb74d; }
+.kyushu   { fill: #ffd54f; }
+
+#map-container {
+    z-index: 1000;
+  width: 100dvw;
+  height: 100dvh;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#map-container svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.text-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.map-section {
+    height: 100dvh;
+    width: 100dvw;
+}
+
+.menu-container {
+    position: absolute;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.menu p {
+  margin: 0;
+  color: white;
+  font-size: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+/* Question Text */
+#question-text {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  width: 130px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+#answer-text {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  width: 130px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+#retry {
+  background-color: #4fc3f7;
+  color: #000;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#retry:hover {
+  background-color: #29b6f6;
+  transform: translateY(-2px);
+}
+
+/* Optional hidden class */
+.is-hidden {
+  display: none !important;
+}
+
+.is-highlighted {
+    opacity: .5;
+}
+
+.prefecture.is-correct {
+  fill: #ffffff !important; /* green fill */
+  transition: fill 0.3s ease;
+}
+
+.prefecture.is-incorrect {
+  fill: #000000 !important; /* red fill */
+  transition: fill 0.3s ease;
+}
+
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.is-visible {
+    display: block;
+}
+
+p {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  background: #f0f8ff;
+  padding: 10px 16px;
+  margin: 10px 0;
+  border-left: 5px solid #4fc3f7;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s, transform 0.2s;
+}
+
+#score-section {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+.score-box,
+.best-box {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  width: 130px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.score-box:hover,
+.best-box:hover {
+  transform: translateY(-4px);
+}
+
+.score-box > div:first-child,
+.best-box > div:first-child {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+  color: #4fc3f7;
+}
+
+#box-inner,
+.box-inner {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#slash {
+  opacity: 0.6;
+}
+
+.credit {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: none;
+    color:#000;
+    font-size: 0.5rem;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
