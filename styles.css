@@ -401,14 +401,14 @@ p {
   }
 
   .svg-pan-zoom-control {
-    transform: scale(0.17); /* Make 2x size */
+    transform: scale(0.12); /* Make 2x size */
     z-index: 1000; /* Ensure it stays on top */
   }
   #svg-pan-zoom-zoom-in {
-    transform-origin: left;
+    transform-origin: top left;
   }
 
   #svg-pan-zoom-zoom-out {
-    transform-origin: top left;
+    transform-origin: bottom left;
   }
 }
