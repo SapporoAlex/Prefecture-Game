@@ -192,25 +192,6 @@ body::after {
   animation: shine-stroke 2s linear infinite;
 }
 
-.svg-pan-zoom-control {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.svg-pan-zoom-in, 
-.svg-pan-zoom-out, 
-.svg-pan-zoom-reset {
-  fill: #4fc3f7;
-  cursor: pointer;
-  transition: fill 0.2s;
-}
-
-.svg-pan-zoom-in:hover,
-.svg-pan-zoom-out:hover,
-.svg-pan-zoom-reset:hover {
-  fill: #29b6f6;
-}
 
 @keyframes shine-stroke {
   0% {
