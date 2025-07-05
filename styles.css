@@ -401,7 +401,7 @@ p {
   }
 
   .svg-pan-zoom-control {
-    transform: scale(0.1); /* Make 2x size */
+    transform: scale(0.3); /* Make 2x size */
     z-index: 1000; /* Ensure it stays on top */
   }
   #svg-pan-zoom-zoom-in {
