@@ -34,7 +34,8 @@ async function initGame() {
     controlIconsEnabled: true,
     fit: true,
     center: true,
-    customEventsHandler: svgPanZoom.mobileEventsHandler
+    customEventsHandler: svgPanZoom.mobileEventsHandler,
+    dblClickZoomEnabled: false,
   });
 
   const all = Array.from(document.querySelectorAll('.prefecture'));
@@ -70,28 +71,56 @@ async function initGame() {
     questionText.textContent = `${target.id}`;
   }
 
+let selectedPrefecture = null;
+
 all.forEach(el => {
-  const handleClick = () => {
+  let moved = false;
+
+  const handleInteraction = () => {
     if (!target) return;
 
+    // First tap: select the prefecture
+    if (selectedPrefecture !== el) {
+      if (selectedPrefecture) {
+        selectedPrefecture.classList.remove('is-highlighted');
+      }
+      selectedPrefecture = el;
+      el.classList.add('is-highlighted');
+      answerText.innerText = `Tap again to confirm`;
+      return;
+    }
+
+    // Second tap: confirm the selection
     questionNumber++;
     if (el === target) {
       score++;
       answerText.innerText = "✅ Correct!";
       correctSound.play();
+      selectedPrefecture.classList.remove('is-highlighted');
       target.classList.add('is-correct');
     } else {
       answerText.innerText = `❌ Incorrect! That was ${el.id}`;
       incorrectSound.play();
+      selectedPrefecture.classList.remove('is-highlighted');
       target.classList.add('is-incorrect');
     }
 
+    selectedPrefecture = null;
     updateScore();
     pick();
   };
 
-  el.addEventListener('click', handleClick);
-  el.addEventListener('touchend', handleClick);
+  // Desktop and general support
+  el.addEventListener('click', handleInteraction);
+
+  // Touch device handling (prevent drag = accidental click)
+  el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
+  el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
+  el.addEventListener('touchend', (e) => {
+    if (moved) return;
+    e.preventDefault();
+    handleInteraction();
+  });
 });
 
   updateScore();
