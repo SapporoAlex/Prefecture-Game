@@ -78,6 +78,8 @@ body::after {
     stroke-width: .5;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    pointer-events: all;
+    touch-action: manipulation;
 }
 
 
@@ -281,7 +283,7 @@ p {
     box-shadow: none;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .menu {
     grid-template-columns: 1fr; /* Stack vertically */
     gap: 1rem;
