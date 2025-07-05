@@ -22,10 +22,12 @@ retry.addEventListener('click', () => {
 });
 
 async function initGame() {
-  document.getElementById('map-container').innerHTML = '';
+  const container = document.getElementById('map-container');
+  container.innerHTML = '';
 
   const res = await fetch('map.svg');
-  document.getElementById('map-container').innerHTML = await res.text();
+  container.innerHTML = await res.text();
+  await new Promise(resolve => requestAnimationFrame(resolve));
 
   svgPanZoom('#japan-map', {
     zoomEnabled: true,
