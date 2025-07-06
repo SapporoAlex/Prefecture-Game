@@ -14,7 +14,7 @@ const incorrectSound = new Audio('incorrect.mp3');
 let bestScore = localStorage.getItem('bestScore') || 0;
 bestScoreText.textContent = bestScore;
 
-retry.addEventListener('click', () => {
+retry.addEventListener('pointerdown', () => {
   retry.classList.add('is-hidden');
   initGame();
 });
@@ -113,7 +113,7 @@ async function initGame() {
       pick();
     };
 
-    el.addEventListener('click', handleInteraction);
+    el.addEventListener('pointerdown', handleInteraction);
     el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
     el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
     el.addEventListener('touchend', (e) => {

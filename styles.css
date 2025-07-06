@@ -400,9 +400,13 @@ p {
     margin: 0.5rem 0;
   }
 
+  svg {
+    touch-action: none;
+  }
+
   .svg-pan-zoom-control {
-    transform: scale(0.14); /* Make 2x size */
-    z-index: 1000; /* Ensure it stays on top */
+    transform: scale(0.15);
+    z-index: 1000;
   }
   #svg-pan-zoom-zoom-in {
     transform-origin: top left;
