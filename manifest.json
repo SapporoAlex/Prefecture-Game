@@ -1,7 +1,7 @@
 {
   "name": "Prefecture Memory Game",
   "short_name": "Prefecture Perfect",
-  "start_url": "/",
+  "start_url": "/Prefecture-Game/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#333333",
