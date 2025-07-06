@@ -322,10 +322,12 @@ p {
 
 #svg-pan-zoom-zoom-in {
   transform-origin: top;
+    fill: #fff !important;
 }
 
 #svg-pan-zoom-zoom-out {
   transform-origin: top left;
+    fill: #fff !important;
 }
 
 .svg-pan-zoom-control-background {
@@ -333,9 +335,9 @@ p {
   stroke: none !important;
 }
 
-/* Change plus and minus icons */
+
 .svg-pan-zoom-control-icon {
-  fill: #fff !important; /* icon color */
+  fill: #fff !important;
 }
 
 .prefecture {
@@ -351,7 +353,7 @@ p {
 
 @media (max-width: 700px) {
   .menu {
-    grid-template-columns: 1fr; /* Stack vertically */
+    grid-template-columns: 1fr;
     gap: 1rem;
     padding: 1rem;
     max-width: 90%;
@@ -405,7 +407,7 @@ p {
   }
 
   .svg-pan-zoom-control {
-    transform: scale(0.15);
+    transform: scale(0.17);
     z-index: 1000;
   }
   #svg-pan-zoom-zoom-in {

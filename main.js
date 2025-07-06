@@ -40,6 +40,7 @@ async function initGame() {
   let remaining = [...all];
   let target, score = 0;
   let questionNumber = 0;
+  let lastClick = 0;
   retry.classList.add('is-hidden');
 
   // 🎉 Animate fall-in effect
@@ -82,6 +83,9 @@ async function initGame() {
     let moved = false;
 
     const handleInteraction = () => {
+      const now = Date.now();
+      if (now - lastClick < 200) return; // debounce
+      lastClick = now;
       if (!target) return;
 
       if (selectedPrefecture !== el) {
@@ -114,13 +118,6 @@ async function initGame() {
     };
 
     el.addEventListener('pointerdown', handleInteraction);
-    el.addEventListener('touchstart', () => { moved = false; }, { passive: true });
-    el.addEventListener('touchmove', () => { moved = true; }, { passive: true });
-    el.addEventListener('touchend', (e) => {
-      if (moved) return;
-      e.preventDefault();
-      handleInteraction();
-    });
   });
 
   updateScore();
